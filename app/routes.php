@@ -11,7 +11,19 @@
 |
 */
 
+Route::get('admin/login', 'AdminUserController@getLogin');
+Route::post('admin/login', 'AdminUserController@postLogin');
+Route::get('admin/logout', 'AdminUserController@logout');
+
+Route::controller('password', 'RemindersController');
+
+Route::resource('admin/user', 'AdminUserController');
+
 Route::get('/', function()
 {
+	// $user = new User;
+	// $user->username = 'joshua';
+	// $user->password = Hash::make('123');
+	return User::all();
 	return View::make('hello');
 });
