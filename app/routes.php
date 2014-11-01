@@ -18,6 +18,7 @@ Route::get('admin/logout', 'AdminUserController@logout');
 Route::controller('password', 'RemindersController');
 
 Route::resource('admin/user', 'AdminUserController');
+Route::resource('admin/page', 'AdminPageController');
 
 Route::get('/', function()
 {

@@ -20,6 +20,7 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="{{ url('admin/user') }}">Users</a></li>
+						<li><a href="{{ url('admin/page') }}">Pages</a></li>
 						@if(Auth::check())
 						<li><a href="{{ url('admin/logout') }}">Log Out</a></li>
 						@endif
