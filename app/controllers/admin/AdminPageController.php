@@ -17,56 +17,8 @@ class AdminPageController extends \BaseController {
 	{
 		$pages = Page::all();
 		$sitemap = $this->get_sitemap();
-		// echo '<pre>';
-		// print_r($this->get_sitemap_array());
-		// echo '</pre>';
 		return View::make('admin.pages.index')->withPages($pages)->withSitemap($sitemap);
 	}
-
-	public function get_sitemap($parent = 0, $return = '')
-	{
-		$return .= '<ul>';
-		$data = Page::where('parent_id', '=', $parent)->get();
-		foreach($data as $d)
-		{
-			$return .= '<li>' . $d->title . ' has ' . $this->count_children($d->id) . ' children.' . $this->get_sitemap($d->id) . '</li>';
-		}
-		$return .= '</ul>';
-		return $return;
-	}
-
-	public function count_children($parent, &$count = 0)
-	{
-		$data = Page::where('parent_id', '=', $parent)->get();
-		$count += count($data);
-		foreach($data as $d)
-		{
-			$this->count_children($d->id, $count);
-		}
-		return $count;
-	}
-
-	public function get_sitemap_array($parent = 0, $return = array())
-	{
-		$data = Page::where('parent_id', '=', $parent)->get();
-		$i = 0;
-		foreach($data as $d)
-		{
-			$return[$d->id] = array('title' => $d->title);
-			$return[$d->id]['children'] = $this->get_sitemap_array($d->id);
-			$i += count($return[$d->id]['children']);
-		}
-		return $return;
-	}
-
-	// public function count_sitemap_array($array, $return = array())
-	// {
-	// 	foreach($array as $k=>$a)
-	// 	{
-
-	// 	}
-	// 	return $array;
-	// }
 
 
 	/**
@@ -256,5 +208,41 @@ class AdminPageController extends \BaseController {
 		return Redirect::to(url('admin/page'));
 	}
 
+
+	public function get_sitemap($parent = 0, $return = '')
+	{
+		$return .= '<ul>';
+		$data = Page::where('parent_id', '=', $parent)->get();
+		foreach($data as $d)
+		{
+			$return .= '<li>' . $d->title . ' has ' . $this->count_children($d->id) . ' children.' . $this->get_sitemap($d->id) . '</li>';
+		}
+		$return .= '</ul>';
+		return $return;
+	}
+
+	public function count_children($parent, &$count = 0)
+	{
+		$data = Page::where('parent_id', '=', $parent)->get();
+		$count += count($data);
+		foreach($data as $d)
+		{
+			$this->count_children($d->id, $count);
+		}
+		return $count;
+	}
+
+	public function get_sitemap_array($parent = 0, $return = array())
+	{
+		$data = Page::where('parent_id', '=', $parent)->get();
+		$i = 0;
+		foreach($data as $d)
+		{
+			$return[$d->id] = array('title' => $d->title);
+			$return[$d->id]['children'] = $this->get_sitemap_array($d->id);
+			$i += count($return[$d->id]['children']);
+		}
+		return $return;
+	}
 
 }
