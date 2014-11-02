@@ -43,6 +43,23 @@
 		</div>
 
 		<div class="form-group">
+		{{ Form::label('parent_id', 'Parent', array('class' => 'control-label')) }}
+		{{ Form::select('parent_id', array('') + $parents, $page->parent_id, array('class' => 'form-control') )}}
+		</div>
+
+
+		@foreach($categories as $cat)
+
+		<div class="checkbox">
+			<label for="cat_{{ $cat->id }}">
+				{{ Form::checkbox('categories[]', $cat->id, in_array($cat->id, $page_cats), array('id' => 'cat_' . $cat->id)) }}
+				{{ $cat->name }}
+			</label>
+		</div>
+
+		@endforeach
+
+		<div class="form-group">
 		{{ Form::Submit('Save', array('class' => 'btn btn-primary') )}}
 		</div>
 

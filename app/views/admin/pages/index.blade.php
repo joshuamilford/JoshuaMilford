@@ -3,6 +3,9 @@
 @section('content')
 <h1>Manage Pages</h1>
 <p><a href="{{ url('admin/page/create') }}" class="btn btn-primary">New Page</a></p>
+
+{{ $sitemap }}
+
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>

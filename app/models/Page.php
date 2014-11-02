@@ -10,5 +10,9 @@ class Page extends Eloquent {
 	 */
 	protected $table = 'pages';
 
+	public function categories()
+	{
+		return $this->belongsToMany('Category')->withTimestamps();
+	}
 
 }
